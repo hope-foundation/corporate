@@ -1,0 +1,54 @@
+---
+import "@/styles/global.css";
+import { site } from "@/data/site";
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL("/og-default.jpg", Astro.site).href;
+---
+
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <meta name="theme-color" content="#b8e5fa" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="th_TH" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Church",
+        name: site.name,
+        alternateName: site.nameEn,
+        foundingDate: "1981-09-06",
+        telephone: "+6622402865",
+        url: canonical,
+        sameAs: site.social.map((s) => s.href),
+      })}
+    />
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>

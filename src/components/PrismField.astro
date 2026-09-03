@@ -1,0 +1,75 @@
+---
+/**
+ * พื้นหลังฟ้า + แสงหักเห — สร้างด้วย CSS ล้วน ไม่ใช้ไฟล์ภาพ
+ *
+ * ทำไมไม่ใช้ backdrop ตัวจริงเป็นภาพพื้นหลัง: ไฟล์ต้นฉบับเป็นแนวนอน 1.5:1
+ * และโลโก้อยู่กลางภาพพอดี — บนมือถือแนวตั้งจะถูก crop กินตัวโลโก้
+ * วาดด้วย CSS จึงยืดหดได้ทุกจอ คมทุก DPI และหนักแค่ไม่กี่ร้อยไบต์
+ *
+ * ทุกเลเยอร์เป็นภาพนิ่ง ไม่มี animation — ไม่ต้องมี guard เรื่อง reduced-motion
+ */
+interface Props {
+  /** ให้ไล่สีจบที่ฟ้าเข้มขึ้น ใช้กับ hero ที่กินเต็มจอ */
+  variant?: "hero" | "band";
+  class?: string;
+}
+const { variant = "band", class: className = "" } = Astro.props;
+---
+
+<div class:list={["prism", `prism--${variant}`, className]} aria-hidden="true"></div>
+
+<style>
+  .prism {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  /* ไล่สีหลัก — จุดสว่างกลางภาพตามตำแหน่งใน backdrop จริง (50% 38%) */
+  .prism--hero {
+    background: radial-gradient(
+      ellipse 90% 70% at 50% 38%,
+      var(--color-anniv-glow) 0%,
+      var(--color-anniv-sky-pale) 38%,
+      var(--color-anniv-sky-light) 62%,
+      var(--color-anniv-sky-mid) 82%,
+      var(--color-anniv-sky-deep) 100%
+    );
+  }
+
+  .prism--band {
+    background: radial-gradient(
+      ellipse 100% 120% at 50% 50%,
+      var(--color-anniv-glow) 0%,
+      var(--color-anniv-sky-pale) 55%,
+      var(--color-anniv-sky-light) 100%
+    );
+  }
+
+  /* เส้นถี่ ๆ มุมซ้าย — เลียนลายเส้นบาง ๆ ในไฟล์ backdrop */
+  .prism::before {
+    content: "";
+    position: absolute;
+    inset: -20% -10% -10% -30%;
+    background: repeating-linear-gradient(
+      72deg,
+      transparent 0 38px,
+      rgb(255 255 255 / 0.38) 38px 39px
+    );
+    -webkit-mask-image: radial-gradient(ellipse 70% 90% at 8% 40%, #000 0%, transparent 72%);
+    mask-image: radial-gradient(ellipse 70% 90% at 8% 40%, #000 0%, transparent 72%);
+  }
+
+  /* แผ่นแสงเฉียงกว้าง — ชิ้นใหญ่ไม่กี่ชิ้น ตัดด้วย clip-path */
+  .prism::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(115deg, rgb(255 255 255 / 0.22) 0 12%, transparent 12.1%),
+      linear-gradient(101deg, transparent 0 58%, rgb(255 255 255 / 0.16) 58.1% 71%, transparent 71.1%),
+      linear-gradient(64deg, transparent 0 74%, rgb(255 255 255 / 0.13) 74.1% 88%, transparent 88.1%),
+      linear-gradient(158deg, transparent 0 82%, rgb(11 85 115 / 0.05) 82.1% 100%);
+  }
+</style>

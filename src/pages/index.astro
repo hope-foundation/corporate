@@ -1,0 +1,145 @@
+---
+import { Image } from "astro:assets";
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PrismField from "@/components/PrismField.astro";
+import { site, anniversaryFormUrl } from "@/data/site";
+import { plain, withBreaks } from "@/lib/thaiText";
+import mark from "@/assets/anniversary-45-mark.png";
+
+const title = `${site.name} — ครบรอบ ${site.anniversaryYears} ปี`;
+const description = `${site.name} (${site.nameEn}) ก่อตั้ง${site.foundedText} — ${plain(site.tagline)}`;
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- ══ 1 · Hero ══════════════════════════════════════════════ -->
+  <header class="relative isolate overflow-hidden">
+    <PrismField variant="hero" />
+
+    <div class="relative mx-auto flex max-w-3xl flex-col items-center px-5 pt-10 pb-16 text-center sm:pt-14 sm:pb-20">
+      <Image
+        src={mark}
+        alt={`ตราสัญลักษณ์ครบรอบ ${site.anniversaryYears} ปี — เลข 45 รูปบ้าน พร้อมข้อความ ANNIVERSARY OF HOPE และ My Hope My Home`}
+        widths={[420, 700, 1400]}
+        sizes="(min-width: 640px) 560px, 88vw"
+        class="anniv-mark w-[88%] max-w-[560px]"
+        loading="eager"
+        fetchpriority="high"
+      />
+
+      {/* แต่ละท่อนห้ามตัดกลาง — ขึ้นบรรทัดใหม่ได้เฉพาะระหว่างท่อน (ดู site.nameParts) */}
+      <h1 class="mt-2 text-[1.75rem] leading-tight text-anniv-ink sm:text-4xl">
+        {site.nameParts.map((part) => <span class="inline-block whitespace-nowrap">{part}</span>)}
+      </h1>
+      <p class="mt-1 font-head text-sm tracking-wide text-anniv-blue uppercase sm:text-base">
+        {site.nameEn}
+      </p>
+
+      <p class="mt-4 max-w-xl text-[0.975rem] text-anniv-muted sm:text-lg" set:html={withBreaks(site.tagline)} />
+
+      <!-- ก่อตั้ง 6 ก.ย. 1981 (วันอาทิตย์) → ครบ 45 ปี 6 ก.ย. 2026 (วันอาทิตย์) วันเดียวกันพอดี -->
+      <p class="mt-6 font-head text-base text-anniv-green-700 sm:text-lg">
+        ก่อตั้ง{site.foundedText}
+        <span class="mt-1 block text-anniv-ink">
+          ครบ {site.anniversaryYears} ปี ใน{site.anniversaryDateText}
+        </span>
+      </p>
+
+      <a
+        href={anniversaryFormUrl}
+        class="mt-8 inline-flex min-h-12 items-center justify-center rounded-full bg-anniv-blue px-8 font-head text-base font-semibold text-white shadow-lg shadow-anniv-blue/20 transition hover:bg-[#155a97] sm:text-lg"
+      >
+        ร่วมส่งคำอวยพร →
+      </a>
+    </div>
+  </header>
+
+  <main class="relative isolate overflow-hidden">
+    <PrismField variant="band" />
+
+    <div class="relative mx-auto max-w-3xl px-5 pb-4">
+      <!-- ══ 2 · วิสัยทัศน์ ══════════════════════════════════════ -->
+      <section class="border-t border-anniv-green/35 py-12 text-center sm:py-14">
+        <h2 class="text-xl text-anniv-blue sm:text-2xl">วิสัยทัศน์</h2>
+        <p
+          class="mx-auto mt-4 max-w-2xl text-[1.0625rem] text-anniv-ink sm:text-xl"
+          set:html={withBreaks(site.vision)}
+        />
+      </section>
+
+      <!-- ══ 3 · ศิษยาภิบาล ═════════════════════════════════════ -->
+      <section class="border-t border-anniv-green/35 py-12 text-center sm:py-14">
+        <h2 class="text-xl text-anniv-blue sm:text-2xl">ศิษยาภิบาล</h2>
+        <p class="mt-4 text-[1.0625rem] text-anniv-ink sm:text-xl">{site.pastorLine}</p>
+      </section>
+
+      <!-- ══ 4 · นมัสการ ════════════════════════════════════════
+           ⚠️ ห้ามใส่ที่อยู่หรือแผนที่ — คริสตจักรนมัสการแบบสัญจร
+                ทุกอย่างชี้ไปที่การโทรถามแทน -->
+      <section class="border-t border-anniv-green/35 py-12 text-center sm:py-14">
+        <h2 class="text-xl text-anniv-blue sm:text-2xl" set:html={withBreaks(site.venue.name)} />
+        <p
+          class="mx-auto mt-4 max-w-2xl text-[1.0625rem] text-anniv-ink"
+          set:html={withBreaks(site.venue.summary)}
+        />
+        <p
+          class="mx-auto mt-3 max-w-2xl text-[0.975rem] text-anniv-muted"
+          set:html={withBreaks(site.venue.contactNote)}
+        />
+        <a
+          href={site.phone.href}
+          class="mt-6 inline-flex min-h-12 items-center justify-center rounded-full border-2 border-anniv-blue px-7 font-head text-lg font-semibold text-anniv-blue transition hover:bg-anniv-blue hover:text-white"
+        >
+          ☎ {site.phone.display}
+        </a>
+      </section>
+
+      <!-- ══ 5 · ติดตาม ═════════════════════════════════════════ -->
+      <section class="border-t border-anniv-green/35 py-12 text-center sm:py-14">
+        <h2 class="text-xl text-anniv-blue sm:text-2xl">ติดตามเรา</h2>
+        <ul class="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+          {
+            site.social.map((s) => (
+              <li>
+                <a
+                  href={s.href}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  class="inline-flex min-h-11 items-center rounded-full bg-white/70 px-5 font-head text-anniv-blue underline-offset-4 transition hover:bg-white hover:underline"
+                >
+                  {s.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <!-- ══ 6 · Footer ════════════════════════════════════════════ -->
+  <footer class="relative isolate overflow-hidden bg-anniv-sky-light">
+    <div class="relative mx-auto max-w-3xl px-5 py-14 text-center">
+      <blockquote class="mx-auto max-w-2xl">
+        <p class="text-[1.0625rem] text-anniv-ink italic sm:text-lg">
+          “<span set:html={withBreaks(site.footerScripture.text)} />”
+        </p>
+        <cite class="mt-3 block font-head text-sm text-anniv-green-700 not-italic">
+          {site.footerScripture.ref}
+        </cite>
+      </blockquote>
+
+      <a
+        href={anniversaryFormUrl}
+        class="mt-10 inline-flex min-h-12 items-center justify-center rounded-full bg-anniv-blue px-8 font-head text-base font-semibold text-white transition hover:bg-[#155a97]"
+      >
+        ร่วมส่งคำอวยพร →
+      </a>
+
+      <p class="mt-10 text-sm text-anniv-muted">
+        {site.name} · <span set:html={withBreaks(site.foundation)} />
+      </p>
+      <p class="mt-1 text-sm text-anniv-muted">© 2026 {site.nameEn}</p>
+    </div>
+  </footer>
+</BaseLayout>
