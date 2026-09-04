@@ -28,7 +28,7 @@ export const site = {
   nameParts: ["คริสตจักร", "ความหวังกรุงเทพฯ"],
   nameEn: "Hope of Bangkok Church",
   /** "|" = จุดที่ขึ้นบรรทัดใหม่ได้ (ดู src/lib/thaiText.ts) */
-  tagline: "ครอบครัว|ใหญ่|ที่|มี|พระคริสต์|เป็น|ศูนย์กลาง",
+  tagline: "รัก|ผูกพัน|ไม่|ทอดทิ้ง|กัน",
   foundation: "มูลนิธิ|ความหวัง|กรุงเทพฯ",
 
   foundedYear: 1981,
