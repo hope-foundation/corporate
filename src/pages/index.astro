@@ -34,6 +34,11 @@ const description = `${site.name} (${site.nameEn}) ก่อตั้ง ${site.
       <p class="mt-1 font-head text-sm tracking-wide text-anniv-blue uppercase sm:text-base">
         {site.nameEn}
       </p>
+      {/* ชื่อมูลนิธิ — รองจากชื่อคริสตจักร ใช้สีจางกว่าเพื่อไม่ให้แย่งความเด่นกับ h1 */}
+      <p
+        class="mt-1 font-head text-sm text-anniv-muted sm:text-base"
+        set:html={withBreaks(site.foundation)}
+      />
 
       <p class="mt-4 max-w-xl text-[0.975rem] text-anniv-muted sm:text-lg" set:html={withBreaks(site.tagline)} />
 
@@ -72,28 +77,7 @@ const description = `${site.name} (${site.nameEn}) ก่อตั้ง ${site.
         <p class="mt-4 text-[1.0625rem] text-anniv-ink sm:text-xl">{site.pastorLine}</p>
       </section>
 
-      <!-- ══ 4 · นมัสการ ════════════════════════════════════════
-           ⚠️ ห้ามใส่ที่อยู่หรือแผนที่ — คริสตจักรนมัสการแบบสัญจร
-                ทุกอย่างชี้ไปที่การโทรถามแทน -->
-      <section class="border-t border-anniv-green/35 py-12 text-center sm:py-14">
-        <h2 class="text-xl text-anniv-blue sm:text-2xl" set:html={withBreaks(site.venue.name)} />
-        <p
-          class="mx-auto mt-4 max-w-2xl text-[1.0625rem] text-anniv-ink"
-          set:html={withBreaks(site.venue.summary)}
-        />
-        <p
-          class="mx-auto mt-3 max-w-2xl text-[0.975rem] text-anniv-muted"
-          set:html={withBreaks(site.venue.contactNote)}
-        />
-        <a
-          href={site.phone.href}
-          class="mt-6 inline-flex min-h-12 items-center justify-center rounded-full border-2 border-anniv-blue px-7 font-head text-lg font-semibold text-anniv-blue transition hover:bg-anniv-blue hover:text-white"
-        >
-          ☎ {site.phone.display}
-        </a>
-      </section>
-
-      <!-- ══ 5 · ติดตาม ═════════════════════════════════════════ -->
+      <!-- ══ 4 · ติดตาม ═════════════════════════════════════════ -->
       <section class="border-t border-anniv-green/35 py-12 text-center sm:py-14">
         <h2 class="text-xl text-anniv-blue sm:text-2xl">ติดตามเรา</h2>
         <ul class="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
@@ -116,9 +100,22 @@ const description = `${site.name} (${site.nameEn}) ก่อตั้ง ${site.
     </div>
   </main>
 
-  <!-- ══ 6 · Footer ════════════════════════════════════════════ -->
+  <!-- ══ 5 · Footer ════════════════════════════════════════════ -->
   <footer class="relative isolate overflow-hidden bg-anniv-sky-light">
     <div class="relative mx-auto max-w-3xl px-5 py-14 text-center">
+      {/* ตราสัญลักษณ์คริสตจักร ตัวเดียวกับ favicon แต่ใช้สัดส่วนจริง 710x887
+          (public/favicon.svg เป็นตัวที่เติมขอบให้เป็นจัตุรัสสำหรับไอคอนเท่านั้น)
+          ตัว SVG มีพื้นขาวในตัว จึงวางบนพื้นฟ้าได้โดยลายเส้นสีขาวยังตัดกับพื้นฟ้าของตรา */}
+      <img
+        src="/brand-emblem.svg"
+        alt="ตราสัญลักษณ์คริสตจักรความหวังกรุงเทพฯ"
+        width="710"
+        height="887"
+        loading="lazy"
+        decoding="async"
+        class="mx-auto mb-10 h-20 w-auto rounded-md shadow-sm"
+      />
+
       <blockquote class="mx-auto max-w-2xl">
         <p class="text-[1.0625rem] text-anniv-ink italic sm:text-lg">
           “<span set:html={withBreaks(site.footerScripture.text)} />”
