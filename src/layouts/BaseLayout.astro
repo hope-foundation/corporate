@@ -20,7 +20,11 @@ const ogImage = new URL("/og-default.jpg", Astro.site).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" href="/favicon.png" type="image/png" />
+    <!-- ตราสัญลักษณ์คริสตจักร (กางเขน–นกพิราบ–พระคัมภีร์) ไม่ใช่โลโก้ 45 ปี
+         SVG มาก่อนเพราะคมทุกขนาด ส่วน PNG ไว้ให้เบราว์เซอร์เก่าที่ไม่รองรับ -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="512x512" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#b8e5fa" />
 
     <meta property="og:type" content="website" />
@@ -40,7 +44,8 @@ const ogImage = new URL("/og-default.jpg", Astro.site).href;
         "@type": "Church",
         name: site.name,
         alternateName: site.nameEn,
-        foundingDate: "1981-09-06",
+        // ปีเท่านั้น — วันก่อตั้งที่แน่นอนยังไม่ยืนยัน
+        foundingDate: "1981",
         telephone: "+6622402865",
         url: canonical,
         sameAs: site.social.map((s) => s.href),

@@ -37,8 +37,10 @@ sips -z 630 1200 "$TMP/og.png" --out "$TMP/og-sized.png" >/dev/null
 # PNG ของภาพไล่สีหนักเกินจำเป็น (704kB) → JPEG เหลือ ~112kB
 sips -s format jpeg -s formatOptions 82 "$TMP/og-sized.png" --out "$HERE/public/og-default.jpg" >/dev/null
 
-# 3) favicon 256x256 — เฉพาะตัวบ้าน ไม่เอาข้อความ (ย่อแล้วอ่านไม่ออกอยู่ดี)
-pdftoppm -png -r 60 -x 2892 -y 561 -W 2716 -H 2716 -singlefile "$TMP/src.pdf" "$TMP/fav"
-sips -z 256 256 "$TMP/fav.png" --out "$HERE/public/favicon.png" >/dev/null
+# หมายเหตุ: favicon ไม่ได้มาจากไฟล์นี้
+#   public/favicon.svg เป็นตราสัญลักษณ์คริสตจักร (กางเขน–นกพิราบ–พระคัมภีร์)
+#   คัดมาจาก repo hopeofbangkok: public/brand/emblem.svg แล้วขยาย viewBox
+#   จาก 710x887 เป็นจัตุรัส 887x887 โดยเติมพื้นขาวซ้าย/ขวา ไม่ยืดภาพ
+#   favicon.png / apple-touch-icon.png คือ SVG ตัวเดียวกัน render เป็น raster
 
-echo "✅ src/assets/anniversary-45-mark.png  public/og-default.jpg  public/favicon.png"
+echo "✅ src/assets/anniversary-45-mark.png  public/og-default.jpg"

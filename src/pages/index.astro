@@ -8,7 +8,7 @@ import { plain, withBreaks } from "@/lib/thaiText";
 import mark from "@/assets/anniversary-45-mark.png";
 
 const title = `${site.name} — ครบรอบ ${site.anniversaryYears} ปี`;
-const description = `${site.name} (${site.nameEn}) ก่อตั้ง${site.foundedText} — ${plain(site.tagline)}`;
+const description = `${site.name} (${site.nameEn}) ก่อตั้ง ${site.foundedText} — ${plain(site.tagline)}`;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -37,11 +37,10 @@ const description = `${site.name} (${site.nameEn}) ก่อตั้ง${site.f
 
       <p class="mt-4 max-w-xl text-[0.975rem] text-anniv-muted sm:text-lg" set:html={withBreaks(site.tagline)} />
 
-      <!-- ก่อตั้ง 6 ก.ย. 1981 (วันอาทิตย์) → ครบ 45 ปี 6 ก.ย. 2026 (วันอาทิตย์) วันเดียวกันพอดี -->
       <p class="mt-6 font-head text-base text-anniv-green-700 sm:text-lg">
-        ก่อตั้ง{site.foundedText}
+        ก่อตั้ง {site.foundedText}
         <span class="mt-1 block text-anniv-ink">
-          ครบ {site.anniversaryYears} ปี ใน{site.anniversaryDateText}
+          ฉลองครบ {site.anniversaryYears} ปี · {site.anniversaryDateText}
         </span>
       </p>
 
@@ -139,6 +138,11 @@ const description = `${site.name} (${site.nameEn}) ก่อตั้ง${site.f
       <p class="mt-10 text-sm text-anniv-muted">
         {site.name} · <span set:html={withBreaks(site.foundation)} />
       </p>
+      {/* ที่อยู่จดทะเบียนของมูลนิธิ ไม่ใช่สถานที่นมัสการ — ห้ามย้ายขึ้นไปบล็อกนมัสการ */}
+      <p
+        class="mx-auto mt-1 max-w-md text-sm text-anniv-muted"
+        set:html={withBreaks(site.foundationAddress)}
+      />
       <p class="mt-1 text-sm text-anniv-muted">© 2026 {site.nameEn}</p>
     </div>
   </footer>

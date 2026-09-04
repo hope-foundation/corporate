@@ -35,7 +35,11 @@ repo นี้จึงหยิบมาเฉพาะข้อมูลที
 ./scripts/extract-mark.sh "/path/to/Photo Backdrop 45th Final (Logo).ai"
 ```
 
-สร้าง `src/assets/anniversary-45-mark.png`, `public/og-default.jpg`, `public/favicon.png`
+สร้าง `src/assets/anniversary-45-mark.png` และ `public/og-default.jpg`
+
+favicon ไม่ได้มาจากไฟล์ backdrop — `public/favicon.svg` เป็นตราสัญลักษณ์คริสตจักร
+(กางเขน–นกพิราบ–พระคัมภีร์) คัดมาจาก `hopeofbangkok/public/brand/emblem.svg`
+แล้วขยาย viewBox ให้เป็นจัตุรัสด้วยการเติมพื้นขาวซ้าย/ขวา
 
 **สีทุกค่าใน `global.css` ดูดมาจากไฟล์นั้นด้วยการสุ่มพิกเซล ไม่ได้กะจากสายตา**
 ⚠️ ต้นฉบับเป็น CMYK และ render โดยไม่มี color profile — สีเขียวอาจเพี้ยนจากงานพิมพ์เล็กน้อย
